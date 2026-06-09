@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ibroxim Inamov | Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #0f172a; /* To'q ko'k fon */
+            color: #f8fafc;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+            color: #38bdf8;
+        }
+
+        p.subtitle {
+            color: #94a3b8;
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+        }
+
+        /* Yo'nalishlar Grid Tizimi */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        /* Kartalar va Effektlar */
+        .card {
+            background: #1e293b; /* Kartaning foni */
+            border: 1px solid #334155;
+            border-radius: 16px;
+            padding: 30px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: #38bdf8;
+            box-shadow: 0 10px 20px rgba(56, 189, 248, 0.15);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: #38bdf8;
+        }
+
+        .card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: #f1f5f9;
+        }
+
+        .card p {
+            font-size: 0.9rem;
+            color: #94a3b8;
+        }
+
+        /* Modal (Alohida ochiladigan oyna) */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.85); /* Fonnning xiralashishi */
+            backdrop-filter: blur(8px);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: #1e293b;
+            border: 2px solid #38bdf8;
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 550px;
+            width: 100%;
+            text-align: left;
+            position: relative;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: #94a3b8;
+            transition: color 0.2s;
+        }
+
+        .close-btn:hover {
+            color: #f43f5e;
+        }
+
+        .modal-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #334155;
+        }
+
+        .modal h2 {
+            color: #38bdf8;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+
+        .modal ul {
+            list-style: none;
+        }
+
+        .modal ul li {
+            margin-bottom: 10px;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            color: #cbd5e1;
+        }
+
+        .modal ul li i {
+            color: #10b981; /* Yashil tasdiqlash belgisi */
+            margin-right: 10px;
+        }
+
+        /* Ijtimoiy tarmoqlar paneli */
+        .social-media {
+            margin-top: 40px;
+        }
+
+        .social-media h4 {
+            margin-bottom: 15px;
+            color: #94a3b8;
+            font-weight: 500;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .social-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #1e293b;
+            border: 1px solid #334155;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #f8fafc;
+            font-size: 1.4rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        /* Ijtimoiy tarmoqlarning hover effektlari */
+        .social-btn.tg:hover { background: #0088cc; border-color: #0088cc; transform: scale(1.1); }
+        .social-btn.ins:hover { background: #e1306c; border-color: #e1306c; transform: scale(1.1); }
+        .social-btn.fb:hover { background: #1877f2; border-color: #1877f2; transform: scale(1.1); }
+        .social-btn.tt:hover { background: #000000; border-color: #334155; transform: scale(1.1); }
+
+        /* Footer (Chiziq va huquqlar) */
+        footer {
+            margin-top: auto;
+            width: 100%;
+            max-width: 1000px;
+            text-align: center;
+            padding-top: 40px;
+        }
+
+        footer hr {
+            border: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, #334155, transparent);
+            margin-bottom: 20px;
+        }
+
+        footer p {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Ibroxim Inamov</h1>
+        <p class="subtitle">Dasturchi | Android, C++, va Web Yo'nalishlari Mutaxassisi</p>
+
+        <div class="grid">
+            <div class="card" onclick="openModal('androidModal')">
+                <div class="card-icon"><i class="fab fa-android" style="color: #3ddc84;"></i></div>
+                <h3>Android Dasturlash</h3>
+                <p>Kotlin va Java tillarida mobil ilovalar yaratish</p>
+            </div>
+
+            <div class="card" onclick="openModal('cppModal')">
+                <div class="card-icon"><i class="fas fa-code" style="color: #00599c;"></i></div>
+                <h3>C++ Dasturlash</h3>
+                <p>Murakkab algoritmlar va tizimli dasturlar</p>
+            </div>
+
+            <div class="card" onclick="openModal('webModal')">
+                <div class="card-icon"><i class="fas fa-laptop-code" style="color: #38bdf8;"></i></div>
+                <h3>Web Texnologiyalar</h3>
+                <p>Veb-saytlar va zamonaviy dizayn asoslari</p>
+            </div>
+        </div>
+
+        <div class="social-media">
+            <h4>Mening ijtimoiy tarmoqlarim:</h4>
+            <div class="social-icons">
+                <a href="https://t.me/start_developer" target="_blank" class="social-btn tg"><i class="fab fa-telegram-plane"></i></a>
+                <a href="https://instagram.com/inamov__ibroxim" target="_blank" class="social-btn ins"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.facebook.com/share/1E8yLt1p9v/" target="_blank" class="social-btn fb"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.tiktok.com/@ibroxim.755" target="_blank" class="social-btn tt"><i class="fab fa-tiktok"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <div id="androidModal" class="modal" onclick="closeModal(event, 'androidModal')">
+        <div class="modal-content">
+            <span class="close-btn" onclick="document.getElementById('androidModal').style.display='none'">&times;</span>
+            <img src="https://images.unsplash.com/photo-1601933470096-0e34634ff3f1?q=80&w=600&auto=format&fit=crop" alt="Android Dasturlash" class="modal-img">
+            <h2>Android Dasturlash</h2>
+            <ul>
+                <li><i class="fas fa-check-circle"></i> Kotlin va Java tillarida mukammal kod yozish</li>
+                <li><i class="fas fa-check-circle"></i> Zamonaviy va foydalanuvchiga qulay UI/UX interfeyslar</li>
+                <li><i class="fas fa-check-circle"></i> Tashqi API va ma'lumotlar bazasi (Room, SQLite) bilan ishlash</li>
+                <li><i class="fas fa-check-circle"></i> Ilovalarni Google Play Store uchun tayyorlash va nashr etish</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="cppModal" class="modal" onclick="closeModal(event, 'cppModal')">
+        <div class="modal-content">
+            <span class="close-btn" onclick="document.getElementById('cppModal').style.display='none'">&times;</span>
+            <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=600&auto=format&fit=crop" alt="C++ Dasturlash" class="modal-img">
+            <h2>C++ Dasturlash</h2>
+            <ul>
+                <li><i class="fas fa-check-circle"></i> Murakkab va yuqori samaradorlikka ega algoritmlar tuzish</li>
+                <li><i class="fas fa-check-circle"></i> Obyektga yo'naltirilgan dasturlash (OOP) prinsiplarini qo'llash</li>
+                <li><i class="fas fa-check-circle"></i> Tizimli dasturlash va backend yechimlari</li>
+                <li><i class="fas fa-check-circle"></i> Xotira bilan aniq va xavfsiz ishlash</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="webModal" class="modal" onclick="closeModal(event, 'webModal')">
+        <div class="modal-content">
+            <span class="close-btn" onclick="document.getElementById('webModal').style.display='none'">&times;</span>
+            <img src="https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?q=80&w=600&auto=format&fit=crop" alt="Web Dasturlash" class="modal-img">
+            <h2>Web Texnologiyalar</h2>
+            <ul>
+                <li><i class="fas fa-check-circle"></i> HTML5, CSS3 va JavaScript asosida zamonaviy saytlar</li>
+                <li><i class="fas fa-check-circle"></i> Moslashuvchan (Responsive) va mobil qurilmalarga mos dizayn</li>
+                <li><i class="fas fa-check-circle"></i> Web interfeys effektlari, animatsiyalar va interaktivlik</li>
+                <li><i class="fas fa-check-circle"></i> Zamonaviy UI/UX va frontend arxitekturasi</li>
+            </ul>
+        </div>
+    </div>
+
+    <footer>
+        <hr>
+        <p>&copy; 2026 Ibroxim Inamov. Barcha huquqlar himoyalangan.</p>
+    </footer>
+
+    <script>
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'flex';
+        }
+
+        function closeModal(event, modalId) {
+            // Agar foydalanuvchi modal oynaning tashqarisiga bossa, oyna yopiladi
+            if (event.target === document.getElementById(modalId)) {
+                document.getElementById(modalId).style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
